@@ -1,7 +1,7 @@
 .navbar{
     background-color: var(--theme);
     padding: 1rem 2rem;
-    position: sticky;
+    position:static;
     top: 0;
     left: 0;
     display: flex;

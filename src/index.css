@@ -19,3 +19,22 @@ body {
 input {
   font-family: "Montserrat", sans-serif;
 }
+
+.custom-input{
+  border: 0px;
+  border-bottom: 1px solid #000;
+  width: 100%;
+  padding: 0.5rem 0rem;
+  font-size: 0.9rem;
+  border-radius: 0;
+}
+
+.custom-input:focus{
+  outline: none;
+  opacity: 2;
+  transition: all 0.8s;
+} 
+
+.custom-input::placeholder{
+  color: gray;
+}
