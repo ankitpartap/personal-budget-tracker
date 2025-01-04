@@ -66,7 +66,7 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish}
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button className="btn btn-blue" type="primary" htmlType="submit">
+          <Button onClick={handleExpenseCancel} className="btn btn-blue" type="primary" htmlType="submit">
             Add Expense
           </Button>
         </Form.Item>

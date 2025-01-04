@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import moment from "moment";
+import TransactionTable from '../components/TransactionTable';
 
 
 function Dashboard() {
@@ -42,6 +43,9 @@ function Dashboard() {
   const [user] = useAuthState(auth);
   const [isExpenseModalVisible, setIsExpenseModalVisible] = useState(false);
   const [isIncomeModalVisible, setIsIncomeModalVisible] = useState(false);
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
 
   const showExpenseModal = () => {
     setIsExpenseModalVisible(true);
@@ -62,7 +66,7 @@ function Dashboard() {
   const onFinish = (values, type) => {
     const newTransaction = {
       type: type,
-      date: moment(values.date).format("YYYY-MM-DD"),
+      date: values.date.format("DD-MM-YYYY"),
       amount: parseFloat(values.amount),
       tag: values.tag,
       name: values.name,
@@ -85,6 +89,10 @@ function Dashboard() {
       );
       console.log("Document written with ID: ", docRef.id);
       toast.success("Transaction Added!");
+      let newArr=transactions;
+      newArr.push(transaction);
+      setTransactions(newArr);
+      calculateBalance();
     } catch (e) {
       console.error("Error adding document: ", e);
 
@@ -97,6 +105,30 @@ function Dashboard() {
     //get all docs from a collection
     fetchTransactions();
   }, [])
+
+  useEffect(() => {
+    //calculate balance everytime when transaction is done
+    calculateBalance();
+  }, [transactions])
+
+
+  const calculateBalance = () => {
+    let incomeTotal = 0;
+    let expensesTotal = 0;
+
+    transactions.forEach((transaction) => {
+      if (transaction.type === "income") {
+        incomeTotal += transaction.amount;
+      } else {
+        expensesTotal += transaction.amount;
+      }
+    });
+
+    setIncome(incomeTotal);
+    setExpense(expensesTotal);
+    setTotalBalance(incomeTotal - expensesTotal);
+  };
+
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -109,8 +141,8 @@ function Dashboard() {
         transactionsArray.push(doc.data());
       });
       setTransactions(transactionsArray);
-      console.log("array: ",transactionsArray);
-      
+      console.log("array: ", transactionsArray);
+
       toast.success("Transactions Fetched!");
     }
     setLoading(false);
@@ -122,16 +154,20 @@ function Dashboard() {
     <>
       <div>
         <Header />
-        {loading ? <p>Loading...</p> 
+        {loading ? <p>Loading...</p>
           : <>
-          <Cards
-            showExpenseModal={showExpenseModal}
-            showIncomeModal={showIncomeModal}
-          />
-          <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish} />
-          <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish} />
+            <Cards
+              income={income}
+              expense={expense}
+              totalBalance={totalBalance}
+              showExpenseModal={showExpenseModal}
+              showIncomeModal={showIncomeModal}
+            />
+            <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish} />
+            <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish} />
+            <TransactionTable transactions={transactions}/>
 
-        </>}
+          </>}
       </div>
     </>
   )

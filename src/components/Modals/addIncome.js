@@ -67,7 +67,7 @@ function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish}) {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button className="btn btn-blue" type="primary" htmlType="submit">
+          <Button onClick={handleIncomeCancel} className="btn btn-blue" type="primary" htmlType="submit">
             Add Income
           </Button>
         </Form.Item>
