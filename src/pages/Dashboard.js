@@ -104,7 +104,7 @@ function Dashboard() {
   useEffect(() => {
     //get all docs from a collection
     fetchTransactions();
-  }, [])
+  }, [user])
 
   useEffect(() => {
     //calculate balance everytime when transaction is done
