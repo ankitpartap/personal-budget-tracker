@@ -10,6 +10,8 @@ import { addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import moment from "moment";
 import TransactionTable from '../components/TransactionTable';
+import Chart from '../components/Charts';
+import NoTransactions from '../components/NoTransaction';
 
 
 function Dashboard() {
@@ -88,15 +90,16 @@ function Dashboard() {
         transaction
       );
       console.log("Document written with ID: ", docRef.id);
-      toast.success("Transaction Added!");
-      let newArr=transactions;
-      newArr.push(transaction);
-      setTransactions(newArr);
-      calculateBalance();
+      if(!many)
+        toast.success("Transaction Added!");
+        let newArr=transactions;
+        newArr.push(transaction);
+        setTransactions(newArr);
+        calculateBalance();
     } catch (e) {
       console.error("Error adding document: ", e);
-
-      toast.error("Couldn't add transaction");
+      if(!many)
+        toast.error("Couldn't add transaction");
 
     }
   }
@@ -148,6 +151,9 @@ function Dashboard() {
     setLoading(false);
   }
 
+  let sortedTransactions=transactions.sort((a,b)=>{
+    return new Date(a.date) - new Date(b.date)
+  })
 
 
   return (
@@ -163,9 +169,10 @@ function Dashboard() {
               showExpenseModal={showExpenseModal}
               showIncomeModal={showIncomeModal}
             />
+            {transactions.length!=0?<Chart sortedTransactionsProp={sortedTransactions}/>:<NoTransactions/>}
             <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish} />
             <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish} />
-            <TransactionTable transactions={transactions}/>
+            <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions={fetchTransactions}/>
 
           </>}
       </div>

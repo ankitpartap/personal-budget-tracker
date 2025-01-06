@@ -1,9 +1,11 @@
 import { Radio, Select, Table, Tag } from 'antd';
 import React, { useState } from 'react'
 import searchImg from '../../assets/search.svg'
+import Papa from 'papaparse';
+import { toast } from 'react-toastify';
 const { Option } = Select;
 
-function TransactionTable({ transactions }) {
+function TransactionTable({ transactions, addTransaction, fetchTransactions}) {
     const [search, setSearch] = useState("");
     const [typeFilter, setTypeFilter] = useState("");
     const [sortKey, setSortKey] = useState("");
@@ -47,6 +49,51 @@ function TransactionTable({ transactions }) {
         }
     });
 
+    function exportToCsv(){
+        var csv = Papa.unparse({
+            fields: ["name", "amount", "tag", "type", "date"],
+            data: transactions
+        });
+
+        // to download file, we need to create a Blob, just like below
+        const blob = new Blob([csv], {type: "text/csv; charset=utf-8;"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download="transactions.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
+    function importFromCsv(event) {
+        event.preventDefault();
+        try {
+          Papa.parse(event.target.files[0], {
+            header: true,
+            complete: async function (results) {
+                console.log("Result>>>>>", results);
+                
+              // Now results.data is an array of objects representing your CSV rows
+              for (const transaction of results.data) {
+                // Write each transaction to Firebase, you can use the addTransaction function here
+                console.log("Transactions", transaction);
+                const newTransaction = {
+                  ...transaction,
+                  amount: parseFloat(transaction.amount),
+                };
+                await addTransaction(newTransaction, true);
+              }
+            },
+          });
+          toast.success("All Transactions Added");
+          fetchTransactions();
+          event.target.files = null;
+        } catch (e) {
+          toast.error(e.message);
+        }
+      }
     return (
         <div
             style={{
@@ -113,7 +160,7 @@ function TransactionTable({ transactions }) {
             }}
           >
             <button className="btn" 
-                // onClick={exportToCsv}
+                onClick={exportToCsv}
             >
               Export to CSV
             </button>
@@ -121,7 +168,7 @@ function TransactionTable({ transactions }) {
               Import from CSV
             </label>
             <input
-            //   onChange={importFromCsv}
+              onChange={importFromCsv}
               id="file-csv"
               type="file"
               accept=".csv"

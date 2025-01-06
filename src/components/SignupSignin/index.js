@@ -1,7 +1,8 @@
 import React, { use, useState } from 'react'
 import "./style.css"
 import InputComponent from '../Input'
-import Button from '../Button'; import { toast } from 'react-toastify';
+import Button from '../Button'; 
+import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -25,6 +26,7 @@ function SignupSignin() {
         console.log("Confirm Password: ", confirmPassword);
 
         // authenticate
+        // signing up a new user
         if (name != "" && email != "" && password != "" && confirmPassword != "") {
             if (password == confirmPassword) {
                 createUserWithEmailAndPassword(auth, email, password)
@@ -75,8 +77,6 @@ function SignupSignin() {
                     console.log("User: ", user);
                     setLoading(false);
                     navigate("/dashboard")
-
-                    // ...
                 })
                 .catch((error) => {
                     const errorCode = error.code;
