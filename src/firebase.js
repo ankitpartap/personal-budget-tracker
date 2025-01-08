@@ -8,18 +8,24 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import 'dotenv/config';
 
 const api_key = process.env.API_KEY;
+const auth_domain=process.env.AUTH_Domain;
+const project_id=process.env.PROJECT_ID;
+const storage_bucket=process.env.STORAGE_BUCKET;
+const messaging_sender_id=process.env.MESSAGING_SENDER_ID;
+const app_id=process.env.APP_ID;
+const measurement_id=process.env.MEASUREMENT_ID;
 
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: api_key,
-  authDomain: "budget-tracker-af7e6.firebaseapp.com",
-  projectId: "budget-tracker-af7e6",
-  storageBucket: "budget-tracker-af7e6.firebasestorage.app",
-  messagingSenderId: "477089083373",
-  appId: "1:477089083373:web:12d06fbc27883efea881e4",
-  measurementId: "G-BJJJ18MGKJ"
+  authDomain: auth_domain,
+  projectId: project_id,
+  storageBucket: storage_bucket,
+  messagingSenderId: messaging_sender_id,
+  appId: app_id,
+  measurementId: measurement_id
 };
 
 // Initialize Firebase
