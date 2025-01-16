@@ -5,15 +5,15 @@ import { getAnalytics } from "firebase/analytics";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import 'dotenv/config';
+// import 'dotenv/config';
 
-const api_key = process.env.API_KEY;
-const auth_domain=process.env.AUTH_Domain;
-const project_id=process.env.PROJECT_ID;
-const storage_bucket=process.env.STORAGE_BUCKET;
-const messaging_sender_id=process.env.MESSAGING_SENDER_ID;
-const app_id=process.env.APP_ID;
-const measurement_id=process.env.MEASUREMENT_ID;
+const api_key = process.env.REACT_APP_API_KEY;
+const auth_domain=process.env.REACT_APP_AUTH_Domain;
+const project_id=process.env.REACT_APP_PROJECT_ID;
+const storage_bucket=process.env.REACT_APP_STORAGE_BUCKET;
+const messaging_sender_id=process.env.REACT_APP_MESSAGING_SENDER_ID;
+const app_id=process.env.REACT_APP_APP_ID;
+const measurement_id=process.env.REACT_APP_MEASUREMENT_ID;
 
 
 // Your web app's Firebase configuration
