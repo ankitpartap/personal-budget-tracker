@@ -25,8 +25,7 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish}
           name="name"
           rules={[
             {
-              required: true,
-              message: "Please input the name of the transaction!",
+              required: true, message: "Please input the name of the transaction!",
             },
           ]}
         >

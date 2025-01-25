@@ -72,11 +72,11 @@ function Chart({ sortedTransactionsProp }) {
     return (
         <>
             <div className='charts-wrapper'>
-                <div>
+                {/* <div>
                     <h2>Your Analytics</h2>
 
                 <Line {...config} onReady={(chartInstance) => (chart = chartInstance)} />
-                </div>
+                </div> */}
                 <div>
                     <h2>Your Spendings</h2>
                     <Pie {...spendingConfig} onReady={(chartInstance) => (pieChart = chartInstance)}/>

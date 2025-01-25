@@ -4,9 +4,9 @@ import Cards from '../components/Cards'
 // import { Modal } from 'antd';
 import AddExpenseModal from '../components/Modals/addExpense';
 import AddIncomeModal from '../components/Modals/addIncome';
-import { auth, db } from '../firebase';
+import { auth, db, doc } from '../firebase';
 import { toast } from 'react-toastify';
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, deleteDoc} from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import moment from "moment";
 import TransactionTable from '../components/TransactionTable';
@@ -104,6 +104,24 @@ function Dashboard() {
     }
   }
 
+  async function deleteTransaction(transactionId) {
+    if (!transactionId) {
+      console.error("Transaction ID is undefined");
+      toast.error("Invalid transaction ID");
+      return;
+    }
+    try{
+      const transactionRef = doc(db, `users/${user.uid}/transactions/${transactionId}`);
+      await deleteDoc(transactionRef);
+      setTransactions((prev) => prev.filter((txn) => txn.id !== transactionId));
+      console.log("Transaction deleted successfully!");
+    toast.success("Transaction Deleted!");
+
+    }catch(e){
+      console.error("Error deleting transaction: ", e);
+    toast.error("Couldn't delete transaction");
+    }
+  }
   useEffect(() => {
     //get all docs from a collection
     fetchTransactions();
@@ -141,7 +159,7 @@ function Dashboard() {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         // doc.data will get the data in object from which we will push it in the array
-        transactionsArray.push(doc.data());
+        transactionsArray.push({id: doc.id, ...doc.data()});
       });
       setTransactions(transactionsArray);
       console.log("array: ", transactionsArray);
@@ -172,7 +190,7 @@ function Dashboard() {
             {transactions.length!=0?<Chart sortedTransactionsProp={sortedTransactions}/>:<NoTransactions/>}
             <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish} />
             <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish} />
-            <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions={fetchTransactions}/>
+            <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions={fetchTransactions} deleteTransaction={deleteTransaction}/>
 
           </>}
       </div>
