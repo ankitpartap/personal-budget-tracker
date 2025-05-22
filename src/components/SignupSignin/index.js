@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, {useState } from 'react'
 import "./style.css"
 import InputComponent from '../Input'
 import Button from '../Button'; 
@@ -27,8 +27,8 @@ function SignupSignin() {
 
         // authenticate
         // signing up a new user
-        if (name != "" && email != "" && password != "" && confirmPassword != "") {
-            if (password == confirmPassword) {
+        if (name !== "" && email !== "" && password !== "" && confirmPassword !== "") {
+            if (password === confirmPassword) {
                 createUserWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
                         // Signed up 
@@ -68,7 +68,7 @@ function SignupSignin() {
 
         setLoading(true);
 
-        if (email != "" && password != "") {
+        if (email !== "" && password !== "") {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Signed in 

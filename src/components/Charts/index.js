@@ -7,7 +7,7 @@ function Chart({ sortedTransactionsProp }) {
     })
 
     const spendingData = sortedTransactionsProp.filter(
-        (trasaction)=>{if(trasaction.type == "expense"){
+        (trasaction)=>{if(trasaction.type === "expense"){
             return{
                 tag: trasaction.tag,
                 amount: trasaction.amount
@@ -31,10 +31,10 @@ function Chart({ sortedTransactionsProp }) {
         {tag:"office", amount:0},   
     ];
     spendingData.forEach((item)=>{
-        if(item.tag=="food"){
+        if(item.tag==="food"){
             newSpendings[0].amount+=item.amount
         }
-        else if(item.tag=="education"){
+        else if(item.tag==="education"){
             newSpendings[1].amount+=item.amount
         }else{
             newSpendings[2].amount+=item.amount

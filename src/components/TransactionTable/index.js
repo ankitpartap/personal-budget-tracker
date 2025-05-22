@@ -1,4 +1,4 @@
-import { Radio, Select, Table, Tag, Space } from 'antd';
+import { Radio, Select, Table } from 'antd';
 import React, { useState } from 'react'
 import searchImg from '../../assets/search.svg'
 import Papa from 'papaparse';
@@ -121,7 +121,7 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions, del
         }}
       >
         <div className="input-flex">
-          <img src={searchImg} width="16" />
+          <img src={searchImg} width="16" alt='search-image' />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}

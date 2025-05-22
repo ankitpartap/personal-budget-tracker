@@ -8,7 +8,7 @@ import { auth, db, doc } from '../firebase';
 import { toast } from 'react-toastify';
 import { addDoc, collection, getDocs, query, deleteDoc} from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import moment from "moment";
+// import moment from "moment";
 import TransactionTable from '../components/TransactionTable';
 import Chart from '../components/Charts';
 import NoTransactions from '../components/NoTransaction';
@@ -187,7 +187,7 @@ function Dashboard() {
               showExpenseModal={showExpenseModal}
               showIncomeModal={showIncomeModal}
             />
-            {transactions.length!=0?<Chart sortedTransactionsProp={sortedTransactions}/>:<NoTransactions/>}
+            {transactions.length!==0?<Chart sortedTransactionsProp={sortedTransactions}/>:<NoTransactions/>}
             <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish} />
             <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish} />
             <TransactionTable transactions={transactions} addTransaction={addTransaction} fetchTransactions={fetchTransactions} deleteTransaction={deleteTransaction}/>

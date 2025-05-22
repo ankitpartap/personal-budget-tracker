@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../src/index.css";
-import {Card, Col, Row, Button, Modal, Form, Input, DatePicker, Select} from "antd";
+import {Button, Modal, Form, Input, DatePicker, Select} from "antd";
 
 function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish}) {
   const [form] = Form.useForm();
