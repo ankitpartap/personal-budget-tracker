@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../../src/index.css";
 import {Button, Modal, Form, Input, DatePicker, Select} from "antd";
+import moment from "moment";
 
-function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish}) {
+function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish, updateTransaction, isEditMode}) {
   const [form] = Form.useForm();
+  useEffect(() => {
+      if (isEditMode && updateTransaction) {
+        form.setFieldsValue({
+          ...updateTransaction,
+          date: updateTransaction.date ? moment(updateTransaction.date) : null,
+        });
+      } else {
+        form.resetFields();
+      }
+    }, [form, isEditMode, updateTransaction]);
   return (
     <Modal
       style={{ fontWeight: 600 }}
-      title="Add Income"
+      title={isEditMode ? "Edit Income" : "Add Income"}
       visible={isIncomeModalVisible}
       onCancel={handleIncomeCancel}
       footer={null}
@@ -16,7 +27,7 @@ function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish}) {
         form={form}
         layout="vertical"
         onFinish={(values) => {
-          onFinish(values, "income");
+          onFinish(values, "income", isEditMode ? updateTransaction.id : null);
           form.resetFields();
         }}
       >
@@ -68,7 +79,7 @@ function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish}) {
         </Form.Item>
         <Form.Item>
           <Button onClick={handleIncomeCancel} className="btn btn-blue" type="primary" htmlType="submit">
-            Add Income
+           {isEditMode ? "Edit Income" : "Add Income"}
           </Button>
         </Form.Item>
       </Form>

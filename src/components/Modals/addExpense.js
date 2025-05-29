@@ -1,12 +1,23 @@
-import React from "react";
-import {Button, Modal, Form, Input, DatePicker, Select} from "antd";
+import React, { useEffect } from "react";
+import { Button, Modal, Form, Input, DatePicker, Select } from "antd";
+import moment from "moment";
 
-function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish}) {
+function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish, updateTransaction, isEditMode }) {
   const [form] = Form.useForm();
+  useEffect(() => {
+    if (isEditMode && updateTransaction) {
+      form.setFieldsValue({
+        ...updateTransaction,
+        date: updateTransaction.date ? moment(updateTransaction.date) : null,
+      });
+    } else {
+      form.resetFields();
+    }
+  }, [isEditMode, updateTransaction]);
   return (
     <Modal
       style={{ fontWeight: 600 }}
-      title="Add Expense"
+      title={isEditMode ? "Edit Expense" : "Add Expense"}
       visible={isExpenseModalVisible}
       onCancel={handleExpenseCancel}
       footer={null}
@@ -15,7 +26,7 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish}
         form={form}
         layout="vertical"
         onFinish={(values) => {
-          onFinish(values, "expense");
+          onFinish(values, "expense", isEditMode ? updateTransaction.id : null);
           form.resetFields();
         }}
       >
@@ -66,7 +77,7 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish}
         </Form.Item>
         <Form.Item>
           <Button onClick={handleExpenseCancel} className="btn btn-blue" type="primary" htmlType="submit">
-            Add Expense
+            {isEditMode ? "Edit Expense" : "Add Expense"}
           </Button>
         </Form.Item>
       </Form>

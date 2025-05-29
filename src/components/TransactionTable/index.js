@@ -1,12 +1,13 @@
-import { Radio, Select, Table } from 'antd';
+import { Radio, Select, Space, Table } from 'antd';
 import React, { useState } from 'react'
 import searchImg from '../../assets/search.svg'
 import Papa from 'papaparse';
 import { toast } from 'react-toastify';
 import './style.css';
+import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 const { Option } = Select;
 
-function TransactionTable({ transactions, addTransaction, fetchTransactions, deleteTransaction }) {
+function TransactionTable({ transactions, addTransaction, fetchTransactions, deleteTransaction, updateTransaction }) {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [sortKey, setSortKey] = useState("");
@@ -41,7 +42,13 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions, del
       key: 'action',
       render: (_, record) => (
         // <Space size="middle">
-          <p className='link' onClick={()=> deleteTransaction(record.id)}>Delete</p>
+        <>
+        <Space size="large">
+
+          <p className='link' onClick={() => deleteTransaction(record.id)}><DeleteTwoTone twoToneColor="#f55a42"/></p>
+          <p className='link' onClick={()=> updateTransaction(record.id)} ><EditTwoTone twoToneColor="#4ee65d"/></p>
+        </Space>
+        </>
         // </Space>
       ),
     }

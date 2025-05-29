@@ -3,7 +3,8 @@ import "./style.css"
 import InputComponent from '../Input'
 import Button from '../Button'; 
 import { toast } from 'react-toastify';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +46,7 @@ function SignupSignin() {
                         //create a document with user id as the following id
                     })
                     .catch((error) => {
-                        const errorCode = error.code;
+                        // const errorCode = error.code;
                         const errorMessage = error.message;
                         toast.error(errorMessage)
                         setLoading(false);
@@ -79,7 +80,7 @@ function SignupSignin() {
                     navigate("/dashboard")
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
+                    // const errorCode = error.code;
                     const errorMessage = error.message;
                     toast.error(errorMessage);
                     setLoading(false);
@@ -130,8 +131,8 @@ function SignupSignin() {
             signInWithPopup(auth, provider)
                 .then((result) => {
                     // This gives you a Google Access Token. You can use it to access the Google API.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
+                    // const credential = GoogleAuthProvider.credentialFromResult(result);
+                    // const token = credential.accessToken;
                     // The signed-in user info.
                     const user = result.user;
                     console.log("user>>>", user);
@@ -146,7 +147,7 @@ function SignupSignin() {
                 }).catch((error) => {
                     setLoading(false);
                     // Handle Errors here.
-                    const errorCode = error.code;
+                    // const errorCode = error.code;
                     const errorMessage = error.message;
                     toast.error(errorMessage);
                 });

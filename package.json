@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^2.2.6",
+    "@ant-design/icons": "^5.0.0",
     "antd": "^5.22.7",
     "cra-template": "1.2.0",
     "firebase": "^11.1.0",
@@ -43,6 +44,6 @@
     ]
   },
   "devDependencies": {
-  "@babel/plugin-proposal-private-property-in-object": "version_number"
-}
+    "@babel/plugin-proposal-private-property-in-object": "version_number"
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line, Pie } from '@ant-design/charts';
+import {Pie } from '@ant-design/charts';
 
 function Chart({ sortedTransactionsProp }) {
     const data = sortedTransactionsProp.map((item) => {
