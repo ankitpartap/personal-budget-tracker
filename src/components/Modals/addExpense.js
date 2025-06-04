@@ -13,12 +13,12 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish,
     } else {
       form.resetFields();
     }
-  }, [isEditMode, updateTransaction]);
+  }, [isEditMode, updateTransaction,form]);
   return (
     <Modal
       style={{ fontWeight: 600 }}
       title={isEditMode ? "Edit Expense" : "Add Expense"}
-      visible={isExpenseModalVisible}
+      open={isExpenseModalVisible}
       onCancel={handleExpenseCancel}
       footer={null}
     >

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "./style.css"
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
@@ -16,7 +16,7 @@ function Header() {
       navigate("/dashboard");
 
     }
-  }, [user, loading])
+  }, [user, loading, navigate])
 
 
   function logoutFnc() {
@@ -39,7 +39,7 @@ function Header() {
       <p className='logo'>Budget Tracker</p>
       {user && (
         <div style={{display:"flex", alignItems: "center", gap:"1rem"}}>
-          <img src={user.photoURL?user.photoURL: userImg} style={{height:"2.5rem", width:"2.5rem",borderRadius: "50%"}}/>
+          <img src={user.photoURL?user.photoURL: userImg} style={{height:"2.5rem", width:"2.5rem",borderRadius: "50%"}} alt="user-pic"/>
         <p className='logo link' onClick={logoutFnc}>Logout</p>
         </div>
 

@@ -41,7 +41,6 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions, del
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-        // <Space size="middle">
         <>
         <Space size="large">
 
@@ -49,7 +48,6 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions, del
           <p className='link' onClick={()=> updateTransaction(record.id)} ><EditTwoTone twoToneColor="#4ee65d"/></p>
         </Space>
         </>
-        // </Space>
       ),
     }
   ];

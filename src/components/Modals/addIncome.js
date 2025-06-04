@@ -19,7 +19,7 @@ function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish, upd
     <Modal
       style={{ fontWeight: 600 }}
       title={isEditMode ? "Edit Income" : "Add Income"}
-      visible={isIncomeModalVisible}
+      open={isIncomeModalVisible}
       onCancel={handleIncomeCancel}
       footer={null}
     >

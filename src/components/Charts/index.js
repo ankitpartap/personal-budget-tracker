@@ -15,15 +15,15 @@ function Chart({ sortedTransactionsProp }) {
         }}
     )
 
-    let finalSpendings = spendingData.reduce((acc, obj)=>{
-        let key = obj.tag;
-        if(!acc[key]){
-            acc[key]={ tag: obj.tag, amount: obj.amount };
-        }else{
-            acc[key].amount +=obj.amount;
-        }
-        return acc;
-    },{});
+    // let finalSpendings = spendingData.reduce((acc, obj)=>{
+    //     let key = obj.tag;
+    //     if(!acc[key]){
+    //         acc[key]={ tag: obj.tag, amount: obj.amount };
+    //     }else{
+    //         acc[key].amount +=obj.amount;
+    //     }
+    //     return acc;
+    // },{});
 
     let newSpendings=[
         {tag:"food", amount:0},
@@ -42,23 +42,23 @@ function Chart({ sortedTransactionsProp }) {
         }
     })
 
-    const config = {
-        data: data,
-        width: 800,
-        height: 400,
-        autoFit: false,
-        xField: 'date',
-        yField: 'amount',
-        point: {
-            size: 5,
-            shape: "diamond"
-        },
-        label: {
-            style: {
-                fill: "#aaa"
-            }
-        }
-    };
+    // const config = {
+    //     data: data,
+    //     width: 800,
+    //     height: 400,
+    //     autoFit: false,
+    //     xField: 'date',
+    //     yField: 'amount',
+    //     point: {
+    //         size: 5,
+    //         shape: "diamond"
+    //     },
+    //     label: {
+    //         style: {
+    //             fill: "#aaa"
+    //         }
+    //     }
+    // };
     const spendingConfig = {
         data: newSpendings,
         width: 800,
@@ -67,7 +67,7 @@ function Chart({ sortedTransactionsProp }) {
         angleField: 'amount',
         colorField: 'tag',
     };
-    let chart;
+    // let chart;
     let pieChart;
     return (
         <>
