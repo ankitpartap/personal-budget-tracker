@@ -8,7 +8,6 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 // import 'dotenv/config';
 
 const api_key = process.env.REACT_APP_API_KEY;
-const auth_domain=process.env.REACT_APP_AUTH_Domain;
 const project_id=process.env.REACT_APP_PROJECT_ID;
 const storage_bucket=process.env.REACT_APP_STORAGE_BUCKET;
 const messaging_sender_id=process.env.REACT_APP_MESSAGING_SENDER_ID;
