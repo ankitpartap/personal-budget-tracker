@@ -20,7 +20,8 @@ const measurement_id=process.env.REACT_APP_MEASUREMENT_ID;
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: api_key,
-  authDomain: auth_domain,
+  // authDomain: auth_domain,
+  authDomain: "budget-tracker-af7e6.firebaseapp.com",
   projectId: project_id,
   storageBucket: storage_bucket,
   messagingSenderId: messaging_sender_id,
