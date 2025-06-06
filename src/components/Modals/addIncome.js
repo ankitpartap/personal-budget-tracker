@@ -33,7 +33,7 @@ function AddIncomeModal({isIncomeModalVisible, handleIncomeCancel, onFinish, upd
       >
         <Form.Item
           style={{ fontWeight: 600 }}
-          label="Name"
+          label="Source"
           name="name"
           rules={[
             {

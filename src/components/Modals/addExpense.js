@@ -32,7 +32,7 @@ function AddExpenseModal({ isExpenseModalVisible, handleExpenseCancel, onFinish,
       >
         <Form.Item
           style={{ fontWeight: 600 }}
-          label="Name"
+          label="Source"
           name="name"
           rules={[
             {
