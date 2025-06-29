@@ -102,9 +102,14 @@ function Dashboard() {
       console.log("Document written with ID: ", docRef.id);
       if (!many)
         toast.success("Transaction Added!");
-      let newArr = transactions;
-      newArr.push(transaction);
-      setTransactions(newArr);
+      setTransactions((prev) => [
+      ...prev,
+      {
+        ...transaction,
+        id: docRef.id,
+      },
+    ]);
+
       calculateBalance();
     } catch (e) {
       console.error("Error adding document: ", e);
